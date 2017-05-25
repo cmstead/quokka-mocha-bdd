@@ -1,0 +1,11 @@
+{
+  "name": "quokka-mocha-bdd",
+  "version": "1.0.0",
+  "description": "Mocha plugin for Quokka to allow experimentation in tests",
+  "main": "index.js",
+  "author": "Chris Stead <cmstead@gmail.com> (http://www.chrisstead.com/)",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "mocha": "^3.4.2"
+  }
+}

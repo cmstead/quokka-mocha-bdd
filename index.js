@@ -1,37 +1,21 @@
 'use strict';
 
-const helpers = require('./helpers');
-const rethrowError = helpers.rethrowError;
-const decorateTest = helpers.decorateTest;
-const decorateSuiteEventHandler = helpers.decorateSuiteEventHandler;
+const setUpMocha = require('./modules/set-up-mocha');
+const mochaApiKeyFactory = require('./modules/mochaApiKeyFactory');
 
-const mochaCondensedApi = [
-    'describe',
-    'it',
-    'before',
-    'beforeEach',
-    'after',
-    'afterEach'
-];
+const isInterfaceKeyOk = mochaApiKeyFactory.isInterfaceKeyOk;
+const getMochaApiKeys = mochaApiKeyFactory.getMochaApiKeys;
+const getMochaTestKey = mochaApiKeyFactory.getMochaTestKey;
 
 module.exports = {
     beforeEach: function beforeEach(config) {
-        const Mocha = require('mocha');
+        let pluginConfig = config['quokka-mocha-bdd'];
+        let interfaceKey = typeof pluginConfig !== 'undefined' ? pluginConfig.interface : 'bdd';
 
-        let mocha = new Mocha();
-        let mochaOn = mocha.suite.on.bind(mocha.suite);
-        let mochaSuite = mocha.suite;
-
-        mocha.suite.on = decorateSuiteEventHandler(mochaSuite, mochaOn, mocha);
-
-        Mocha.interfaces.bdd(mochaSuite);
-
-        mochaCondensedApi.forEach(key => global[key] = mochaSuite[key]);
-
-        global.it = (title, callback) => mochaSuite.it(title, decorateTest(callback));
-        global.it.only = (title, callback) => mochaSuite.it.only(title, decorateTest(callback));
-        global.it.skip = (title, callback) => mochaSuite.it.skip(title, decorateTest(callback));
-
-        global.runQuokkaMochaBdd = mocha.run.bind(mocha);
+        let mochaApiKey = isInterfaceKeyOk(interfaceKey) ? interfaceKey : 'bdd';
+        let mochaApiKeys = getMochaApiKeys(mochaApiKey);
+        let testKey = getMochaTestKey(mochaApiKey);
+        
+        setUpMocha(mochaApiKeys, interfaceKey, testKey);
     }
 };

@@ -20,7 +20,10 @@ Next, add the plugin to your Quokka configuration:
 ({
     "plugins": [
         "quokka-mocha-bdd"
-    ]
+    ],
+    "quokka-mocha-bdd": {
+        "interface": <bdd|tdd|qunit>
+    }
 })
 ```
 
@@ -45,6 +48,10 @@ This last step guarantees the mocha tests will not run until your tests are read
 To run Quokka, open a file and type `ctrl/command+k, q`.
 
 ## Changelog ##
+
+### v1.1.0 ###
+
+- Added support for TDD and QUnit interfaces through configuration options
 
 ### v1.0.0 ###
 

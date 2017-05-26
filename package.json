@@ -1,6 +1,6 @@
 {
   "name": "quokka-mocha-bdd",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mocha plugin for Quokka to allow experimentation in tests",
   "main": "index.js",
   "author": "Chris Stead <cmstead@gmail.com> (http://www.chrisstead.com/)",

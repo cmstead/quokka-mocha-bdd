@@ -20,9 +20,17 @@ function setUpMocha(mochaApi, interfaceKey, testKey) {
 
     mochaApi.forEach(key => global[key] = mochaSuite[key]);
 
-    global[testKey] = (title, callback) => mochaSuite[testKey](title, decorateTest(callback));
-    global[testKey].only = (title, callback) => mochaSuite[testKey].only(title, decorateTest(callback));
-    global[testKey].skip = (title, callback) => mochaSuite[testKey].skip(title, decorateTest(callback));
+    global[testKey] = function (title, callback) {
+        mochaSuite[testKey](title, decorateTest(callback));
+    }
+
+    global[testKey].only = function (title, callback) {
+        mochaSuite[testKey].only(title, decorateTest(callback));
+    }
+
+    global[testKey].skip = function (title, callback) {
+        mochaSuite[testKey].skip(title, decorateTest(callback));
+    }
 
     global.runQuokkaMochaBdd = mocha.run.bind(mocha);
 }

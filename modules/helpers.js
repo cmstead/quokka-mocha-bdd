@@ -6,14 +6,28 @@ function rethrowError(error) {
     }, 10);
 }
 
-function decorateTest(callback) {
+function decorateWithoutDone(callback) {
     return function () {
         try {
-            callback();
+            callback.call(this);
         } catch (e) {
             rethrowError(e);
         }
-    }
+    };
+}
+
+function decorateWithDone(callback) {
+    return function (done) {
+        try {
+            callback.call(this, done);
+        } catch (e) {
+            rethrowError(e);
+        }
+    };
+}
+
+function decorateTest(callback) {
+    return callback.length > 0 ? decorateWithDone(callback) : decorateWithoutDone(callback);
 }
 
 function decorateSuiteEventHandler(mochaSuite, mochaOn, mocha) {

@@ -49,7 +49,7 @@ To run Quokka, open a file and type `ctrl/command+k, q`.
 
 ## Changelog ##
 
-### v1.2.0 ###
+### v1.3.0 ###
 
 - Fixed tests not properly capturing their runner context
 

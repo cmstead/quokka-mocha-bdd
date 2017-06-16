@@ -49,6 +49,10 @@ To run Quokka, open a file and type `ctrl/command+k, q`.
 
 ## Changelog ##
 
+### v1.2.0 ###
+
+- Fixed tests not properly capturing their runner context
+
 ### v1.1.0 ###
 
 - Added support for TDD and QUnit interfaces through configuration options

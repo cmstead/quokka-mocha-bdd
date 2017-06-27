@@ -27,7 +27,8 @@ function decorateWithDone(callback) {
 }
 
 function decorateTest(callback) {
-    return callback.length > 0 ? decorateWithDone(callback) : decorateWithoutDone(callback);
+    let cleanCallback = typeof callback === 'function' ? callback : () => {};
+    return cleanCallback.length > 0 ? decorateWithDone(cleanCallback) : decorateWithoutDone(cleanCallback);
 }
 
 function decorateSuiteEventHandler(mochaSuite, mochaOn, mocha) {
